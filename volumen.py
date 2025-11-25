@@ -14,7 +14,7 @@ class AudioControlWindow:
 
     def create_window(self):
         self.root = tk.Tk()
-        self.root.title("Control de Audio")
+        self.root.title("Control de Audio / iphone 99")
         self.root.geometry("320x220")
         # Dentro de create_window()
         self.root.bind("<F1>", self.toggle_info)
@@ -90,6 +90,7 @@ class AudioControlWindow:
 
         # actualizar referencia
         self.game.sound = new_sound
+        
     def toggle_info(self, event):
         if self.game:
             self.game.show_info = not self.game.show_info
