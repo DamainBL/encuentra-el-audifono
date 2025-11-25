@@ -3,12 +3,12 @@ import random
 import math
 
 class TrashObject:
-    def __init__(self, x, y, image_path, size=32):
+    def __init__(self, x, y, image_path, size):
         self.x = x
         self.y = y
         self.size = size  # radio para colisiones
 
-        # Movimiento suave
+ 
         self.vx = 0
         self.vy = 0
         self.friction = 0.95  # para que no se deslicen infinitamente
@@ -113,6 +113,7 @@ class Game:
         self.WHITE = (255, 255, 255)
         self.GRAY = (40, 40, 40)
         self.RED = (255, 0, 0)
+        self.Color = self.GRAY
 
         self.music_list = [
             "canciones/tema1.mp3",
@@ -182,7 +183,7 @@ class Game:
         self.push_radius = 25
 
         self.header_text = self.font.render(
-            "Encuentra el audífono. ESC para salir.", True, self.WHITE
+            "Encuentra el audífono. ESC para salir.", True, (181, 175, 101)
         )
 
     # ------------------------------------------------------
@@ -221,7 +222,7 @@ class Game:
     def apply_physics(self, mx, my):
         dx = self.headphone_x - mx
         dy = self.headphone_y - my
-        dist = (dx*dx + dy*dy) ** 0.5
+        dist = math.hypot(dx, dy)
 
         if dist < self.push_radius and dist > 0:
             force = (self.push_radius - dist) / self.push_radius
@@ -263,8 +264,6 @@ class Game:
             return
 
 
-        
-
         # Volumen adicional por distancia
         dist_vol = max(0, min(1, 1 - dist / 500))
 
@@ -274,6 +273,51 @@ class Game:
 
         self.channel.set_volume(left_vol, right_vol)
 
+    # ------------------------------------------------------
+    #                         DIBUJO
+    # ------------------------------------------------------
+
+    def draw(self, dist):
+        self.screen.fill(self.GRAY)
+
+ 
+        if self.show_info:
+            # Info de distancia y estado
+            info = self.font.render(f"Distancia: {int(dist)} px | Encontrado: {self.found}", True, self.WHITE)
+            self.screen.blit(info, (20, 60))
+
+
+        if self.show_info:
+            self.Color = self.RED  
+        else:
+            self.Color = self.GRAY
+            
+
+
+
+        # --- Dibujar audífono SOLO si NO está encontrado (debajo de la basura) ---
+        if not self.found:
+            # En vez de círculo, lo dibujamos DEL MISMO COLOR DEL FONDO
+            pygame.draw.circle(
+                self.screen,
+                self.Color,  # MISMO COLOR DEL FONDO → se camufla
+                (self.headphone_x, self.headphone_y),
+                self.headphone_radius
+            )
+
+        # --- Dibujar basura (encima del audífono) ---
+        for obj in self.trash:
+            obj.draw(self.screen)
+
+        # --- Si está encontrado, mostrar sprite real por encima de todo ---
+        if self.found:
+            self.screen.blit(
+                self.headphone_img,
+                (self.headphone_x - self.sprite_w // 2,
+                self.headphone_y - self.sprite_h // 2)
+            )
+
+        self.screen.blit(self.header_text, (20, 20))
 
     # ------------------------------------------------------
     #                     BUCLE PRINCIPAL
@@ -293,7 +337,7 @@ class Game:
             mx, my = pygame.mouse.get_pos()
             dx = mx - self.headphone_x
             dy = my - self.headphone_y
-            dist = (dx*dx + dy*dy) ** 0.5
+            dist = math.hypot(dx, dy)
             
             # --- FÍSICA DEL AUDÍFONO ---
             if not self.found:
@@ -322,42 +366,3 @@ class Game:
             self.clock.tick(self.FPS)
 
         pygame.quit()
-
-
-    # ------------------------------------------------------
-    #                         DIBUJO
-    # ------------------------------------------------------
-
-    def draw(self, dist):
-        self.screen.fill(self.GRAY)
-
-        if self.show_info:
-            # Header
-            self.screen.blit(self.header_text, (20, 20))
-            # Info de distancia y estado
-            info = self.font.render(f"Distancia: {int(dist)} px | Encontrado: {self.found}", True, self.WHITE)
-            self.screen.blit(info, (20, 60))
-
-
-
-        # --- Dibujar audífono SOLO si NO está encontrado (debajo de la basura) ---
-        if not self.found:
-            # En vez de círculo, lo dibujamos DEL MISMO COLOR DEL FONDO
-            pygame.draw.circle(
-                self.screen,
-                self.RED,  # MISMO COLOR DEL FONDO → se camufla
-                (self.headphone_x, self.headphone_y),
-                self.headphone_radius
-            )
-
-        # --- Dibujar basura (encima del audífono) ---
-        for obj in self.trash:
-            obj.draw(self.screen)
-
-        # --- Si está encontrado, mostrar sprite real por encima de todo ---
-        if self.found:
-            self.screen.blit(
-                self.headphone_img,
-                (self.headphone_x - self.sprite_w // 2,
-                self.headphone_y - self.sprite_h // 2)
-            )
