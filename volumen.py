@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import threading
 import pygame
 
@@ -11,6 +11,8 @@ class AudioControlWindow:
         self.thread = threading.Thread(target=self.create_window)
         self.thread.daemon = True
         self.thread.start()
+        self.win_shown = False
+
 
     def create_window(self):
         self.root = tk.Tk()
@@ -50,6 +52,9 @@ class AudioControlWindow:
         # Seleccionar canción actual
         self.song_listbox.select_set(self.game.current_music)
         self.song_listbox.bind("<<ListboxSelect>>", self.select_song)
+
+        self.check_win_condition()
+
 
         self.root.mainloop()
 
@@ -95,3 +100,14 @@ class AudioControlWindow:
         if self.game:
             self.game.show_info = not self.game.show_info
             print("Mostrar info:", self.game.show_info)
+
+    def check_win_condition(self):
+   
+        if self.game.found and not self.win_shown:
+            self.win_shown = True
+            messagebox.showinfo("¡Ganaste!", "¡Felicitaciones, encontraste tu otro audifono! ahora podras escuchar musica por ambos lados")
+        
+        # Revisar cada 200 ms
+        if not self.win_shown:
+            self.root.after(200, self.check_win_condition)
+
