@@ -104,7 +104,7 @@ class Game:
         # --- Ventana ---
         self.WIDTH, self.HEIGHT = 900, 600
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
-        pygame.display.set_caption("Encuentra el audífono - Ventana de juego")
+        pygame.display.set_caption("Encuentra el audífono")
 
         self.clock = pygame.time.Clock()
         self.FPS = 60
@@ -182,9 +182,6 @@ class Game:
         self.push_strength = 0.18
         self.push_radius = 25
 
-        self.header_text = self.font.render(
-            "Encuentra el audífono. ESC para salir.", True, (181, 175, 101)
-        )
 
     # ------------------------------------------------------
     #                     GENERAR BASURA
@@ -317,8 +314,6 @@ class Game:
                 self.headphone_y - self.sprite_h // 2)
             )
 
-        self.screen.blit(self.header_text, (20, 20))
-
     # ------------------------------------------------------
     #                     BUCLE PRINCIPAL
     # ------------------------------------------------------
@@ -366,3 +361,4 @@ class Game:
             self.clock.tick(self.FPS)
 
         pygame.quit()
+
