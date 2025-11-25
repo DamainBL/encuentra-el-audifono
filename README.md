@@ -9,34 +9,34 @@ Juego en Pygame
 
   Objetos ("basura") que:
   
-    Se mueven físicamente con empuje cuando el mouse se acerca.
+  -Se mueven físicamente con empuje cuando el mouse se acerca.
     
-    Tienen colisiones entre sí.
+  -Tienen colisiones entre sí.
     
-    Rebotan contra los bordes de la pantalla.
+  -Rebotan contra los bordes de la pantalla.
 
   Un audífono oculto que:
   
-    Se desplaza ligeramente cuando el mouse está cerca.
+  -Se desplaza ligeramente cuando el mouse está cerca.
     
-    Se camufla con el color del fondo hasta ser encontrado.
+  -Se camufla con el color del fondo hasta ser encontrado.
     
-    Mecánica de victoria al hacer clic cerca del audífono.
+  -Mecánica de victoria al hacer clic cerca del audífono.
     
-    Sistema de audio direccional:
+  Sistema de audio direccional:
     
-    El volumen del canal derecho baja con la distancia al audífono.
+  -El volumen del canal derecho baja con la distancia al audífono.
     
-    Combina distancia + volumen del slider de Tkinter.
+  -Combina distancia + volumen del slider de Tkinter.
 
   🎚 Ventana de Control (Tkinter)
   
   Permite:
     
-    Ajustar volumen global del juego con un slider.
+  -Ajustar volumen global del juego con un slider.
     
-    Cambiar entre distintas canciones.
+  -Cambiar entre distintas canciones.
     
-    Activar o desactivar información de depuración (F1).
+  -Activar o desactivar información de depuración (F1).
     
     Todo esto sin bloquear el loop de Pygame, gracias al uso de threads.
