@@ -27,7 +27,7 @@ Además incluye una ventana externa en Tkinter que permite controlar el volumen 
     
   -Combina distancia + volumen del slider de Tkinter.
 
-  ## 🎚 Ventana de Control (Tkinter)
+  ## Ventana de Control (Tkinter)
   
   ### Permite:
     
