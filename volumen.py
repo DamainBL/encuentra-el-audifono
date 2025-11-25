@@ -16,8 +16,9 @@ class AudioControlWindow:
 
     def create_window(self):
         self.root = tk.Tk()
-        self.root.title("Control de Audio / iphone 99")
-        self.root.geometry("320x220")
+        self.root.title("spotify")
+        self.root.geometry("320x300")
+        self.root.wm_resizable(0,0)
         # Dentro de create_window()
         self.root.bind("<F1>", self.toggle_info)
 
@@ -53,9 +54,16 @@ class AudioControlWindow:
         self.song_listbox.select_set(self.game.current_music)
         self.song_listbox.bind("<<ListboxSelect>>", self.select_song)
 
+        
+
+        # -----------------------------
+        # info de como jugar
+        # -----------------------------
+
+        boton = tk.Button(self.root, text="como jugar", command=self.mostrar_mensaje)
+        boton.pack(pady=20)
+
         self.check_win_condition()
-
-
         self.root.mainloop()
 
     # -----------------------------
@@ -105,9 +113,11 @@ class AudioControlWindow:
    
         if self.game.found and not self.win_shown:
             self.win_shown = True
-            messagebox.showinfo("¡Ganaste!", "¡Felicitaciones, encontraste tu otro audifono! ahora podras escuchar musica por ambos lados")
+            messagebox.showinfo("¡Ganaste!", "¡Felicitaciones, encontraste tu otro audifono! ahora podras escuchar musica por ambos lados \n\npara salir puedes precionar ¨esc¨")
         
         # Revisar cada 200 ms
         if not self.win_shown:
             self.root.after(200, self.check_win_condition)
 
+    def mostrar_mensaje(self):
+        messagebox.showinfo(title ="Como jugar / historia", message="Estabas caminando y escuchando tu musica sin copyrght comodamente hasta que tropezaste y se te callo tu audifono derecho, ahora debes buscarlo entre la basura de la calle \n\nComo jugar? \n\nutiliza tu mouse para mover la basura y buscar tu audifono, entre mas te acerques mas se escuchara en tu audifono o parlante derecho \n\ncuando creas que estas lo suficientemente cerca de el o sobre el da click para encontrarlo", icon = 'info')
