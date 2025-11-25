@@ -3,11 +3,11 @@
 Este proyecto implementa un mini-juego en Pygame donde el jugador debe encontrar un audífono oculto bajo objetos que reaccionan físicamente al movimiento del mouse.
 Además incluye una ventana externa en Tkinter que permite controlar el volumen del juego, cambiar la canción, y mostrar información en pantalla ― todo esto usando hilos para que ambas ventanas funcionen simultáneamente.
 
-Características Principales
+#Características Principales
 
-Juego en Pygame
+##Juego en Pygame
 
-  Objetos ("basura") que:
+  ##Objetos ("basura") que:
   
   -Se mueven físicamente con empuje cuando el mouse se acerca.
     
@@ -15,7 +15,7 @@ Juego en Pygame
     
   -Rebotan contra los bordes de la pantalla.
 
-  Un audífono oculto que:
+  ##Un audífono oculto que:
   
   -Se desplaza ligeramente cuando el mouse está cerca.
     
@@ -29,9 +29,9 @@ Juego en Pygame
     
   -Combina distancia + volumen del slider de Tkinter.
 
-  🎚 Ventana de Control (Tkinter)
+  ##🎚 Ventana de Control (Tkinter)
   
-  Permite:
+  ###Permite:
     
   -Ajustar volumen global del juego con un slider.
     
@@ -39,4 +39,4 @@ Juego en Pygame
     
   -Activar o desactivar información de depuración (F1).
     
-    Todo esto sin bloquear el loop de Pygame, gracias al uso de threads.
+  -Todo esto sin bloquear el loop de Pygame, gracias al uso de threads.
